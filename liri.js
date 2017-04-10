@@ -17,14 +17,27 @@ var command = process.argv[2];
 	var screenName = process.argv[3];
 
 
-	client.get('statuses/user_timeline', { user_id: screenName, count: 3 }, function(error, tweets, response) {
-		console.log(screenName);
-		console.log(error);
-		console.log(tweets);
+	client.get('statuses/user_timeline', { user_id: screenName, count: 20, trim_user: true }, function(error, tweets, response) {
+		if (!error) {
+			for (var i = 0; i < tweets.length; i++) {
+
+
+    console.log(tweets[i].created_at + tweets[i].text);
+    }
+  }
+});
+		
+		
   		
 
-  })
-}
+  }
+
+// else if {
+// 	(command === "spotify-this-song") { 
+	
+
+
+// }
 // fs.writeFile("log.txt", data, function(err) {
 
 //   // If the code experiences any errors it will log the error to the console.
