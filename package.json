@@ -1,0 +1,28 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "LiriBot command line application",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BooRad45/liri-node-app.git"
+  },
+  "keywords": [
+    "liribot",
+    "twitter",
+    "spotify",
+    "omdb"
+  ],
+  "author": "Brendan Rogers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BooRad45/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/BooRad45/liri-node-app#readme",
+  "dependencies": {
+    "twitter": "^1.7.0"
+  }
+}
