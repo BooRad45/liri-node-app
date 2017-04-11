@@ -67,6 +67,7 @@ var command = process.argv[2];
   	// Store all of the arguments in an array
 		var nodeArgs = process.argv;
 
+
 // Create an empty variable for holding the movie name
 		var movieName = "";
 
@@ -77,7 +78,6 @@ var command = process.argv[2];
   		if (i > 3 && i < nodeArgs.length) {
 
     movieName = movieName + "+" + nodeArgs[i];
-    // console.log(movieName);
 
   }
 
@@ -87,6 +87,28 @@ var command = process.argv[2];
 
   }
 }
+
+	if (process.argv[3] === undefined) {
+
+
+	var mrNobody = "http://www.omdbapi.com/?t=mr+nobody&y=&plot=short&r=json";
+	request(mrNobody, function(error, response, body) {
+
+		if (!error && response.statusCode === 200) {
+
+    console.log("The movie's title is: " + JSON.parse(body).Title);
+    console.log("Year movie came out: " + JSON.parse(body).Year);
+    console.log("The movie's rating is: " + JSON.parse(body).imdbRating);
+    console.log("Country of origin: " + JSON.parse(body).Country);
+    console.log("The movie's language is: " + JSON.parse(body).Language);
+    console.log("The movie's plot: " + JSON.parse(body).Plot);
+    console.log("The movie's actors are: " + JSON.parse(body).Actors);
+    console.log("Rotten Tomatoes rating: " + JSON.parse(body).Ratings[1].Value);
+			}
+    });
+}
+
+
   	var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&r=json"
 
 	request(queryUrl, function(error, response, body) {
@@ -102,14 +124,9 @@ var command = process.argv[2];
     console.log("The movie's actors are: " + JSON.parse(body).Actors);
     console.log("Rotten Tomatoes rating: " + JSON.parse(body).Ratings[1].Value);
     }
+
   });
-
 }
-else {
-	console.log("That is not a valid command!");
-}
-
-
 	
 
 
