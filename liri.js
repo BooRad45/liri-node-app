@@ -36,7 +36,7 @@ var command = process.argv[2];
     			var dataArray = data.tracks.items.length;
     			// console.log(dataArray);
     			for (var i = 0; i < dataArray; i++) {
-    			console.log("Artist: " + data.tracks.items[i].artists[0].name + "  " + "Song Name: " + data.tracks.items[i].name + "  " + "Album: " + data.tracks.items[i].album.name + "\n");
+    			console.log("Artist: " + data.tracks.items[i].artists[0].name + "  " + "Song Name: " + data.tracks.items[i].name + "  " + "Album: " + data.tracks.items[i].album.name + "  " + "Track Link: " + data.tracks.items[i].external_urls.spotify + "\n");
     		  }
     		}
 	  });
