@@ -23,7 +23,7 @@ var command = process.argv[2];
   }
 
   else if (command === "spotify-this-song") {
-  	console.log(command);
+  	// console.log(command);
   	var song = process.argv[3];
 
   	spotify.search({ type: 'track', query: song }, function(err, data) {
@@ -34,9 +34,9 @@ var command = process.argv[2];
     		else {
     			//get just artist info for track
     			var dataArray = data.tracks.items.length;
-    			console.log(dataArray);
+    			// console.log(dataArray);
     			for (var i = 0; i < dataArray; i++) {
-    			console.log(data.tracks.items[i].artists[0].name);
+    			console.log("Artist: " + data.tracks.items[i].artists[0].name + "  " + "Song Name: " + data.tracks.items[i].name + "  " + "Album: " + data.tracks.items[i].album.name + "\n");
     		  }
     		}
 	  });
