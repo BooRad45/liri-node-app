@@ -47,18 +47,51 @@ var command = process.argv[2];
   }
 
   else if (command === "movie-this") {
-  	var movie = process.argv[3];
+  	// Store all of the arguments in an array
+		var nodeArgs = process.argv;
+
+// Create an empty variable for holding the movie name
+		var movieName = "";
+
+// Loop through all the words in the node argument
+// And do a little for-loop magic to handle the inclusion of "+"s
+		for (var i = 3; i < nodeArgs.length; i++) {
+
+  		if (i > 3 && i < nodeArgs.length) {
+
+    movieName = movieName + "+" + nodeArgs[i];
+    console.log(movieName);
 
   }
 
+  		else {
+
+    movieName += nodeArgs[i];
+
+  }
+}
+  	var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&r=json"
+
+	request(queryUrl, function(error, response, body) {
+
+  if (!error && response.statusCode === 200) {
+
+    console.log("The movie's title is: " + JSON.parse(body).Title);
+    console.log("Year movie came out: " + JSON.parse(body).Year);
+    console.log("The movie's rating is: " + JSON.parse(body).imdbRating);
+    console.log("Country of origin: " + JSON.parse(body).Country);
+    console.log("The movie's language is: " + JSON.parse(body).Language);
+    console.log("The movie's plot: " + JSON.parse(body).Plot);
+    console.log("The movie's actors are: " + JSON.parse(body).Actors);
+    console.log("Rotten Tomatoes rating: " + JSON.parse(body).Ratings[1].Value);
+    }
+  });
+
+}
+
 
 	
-// else if {
-    		// 	 (song == "") {
-    		// 		spotify.lookup({ type: 'track', id: '0hrBpAOgrt8RXigk83LLNE' }, hollaback);
-    		// 		console.log(this);
-    		// 	}
-    		// }
+
 
 // }
 // fs.writeFile("log.txt", data, function(err) {
