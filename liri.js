@@ -8,6 +8,7 @@ var fs = require("fs");
 // console.log("Please enter a command for LiriBot: my-tweets <username>, spotify-this-song <song name>, movie-this <movie name >, or do-what-it-says");
 
 // Create a "Prompt" with a series of questions.
+
 var command = process.argv[2];
  
  	if (command === "my-tweets") {
@@ -23,8 +24,24 @@ var command = process.argv[2];
   }
 
   else if (command === "spotify-this-song") {
-  	// console.log(command);
-  	var song = process.argv[3];
+  	var nodeArgs = process.argv;
+  	var song = "";
+
+  		for (var i = 3; i < nodeArgs.length; i++) {
+
+  		if (i > 3 && i < nodeArgs.length) {
+
+    song = song + "+" + nodeArgs[i];
+    console.log(song);
+
+  }
+
+  		else {
+
+    song += nodeArgs[i];
+
+  }
+}
   	
   	spotify.search({ type: 'track', query: song }, function(err, data) {
     if ( err ) {
@@ -60,7 +77,7 @@ var command = process.argv[2];
   		if (i > 3 && i < nodeArgs.length) {
 
     movieName = movieName + "+" + nodeArgs[i];
-    console.log(movieName);
+    // console.log(movieName);
 
   }
 
@@ -87,6 +104,9 @@ var command = process.argv[2];
     }
   });
 
+}
+else {
+	console.log("That is not a valid command!");
 }
 
 
