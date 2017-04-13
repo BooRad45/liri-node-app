@@ -127,19 +127,24 @@ var command = process.argv[2];
 
   });
 }
+
+else {
+
+fs.readFile("random.txt", function(err, data) {
+
+  // If the code experiences any errors it will log the error to the console.
+  if (err) {
+    return console.log(err);
+    
+    else {
+
+    var dataArr = data.split(",");
+
+    }
+  }
+
+});
 	
 
 
-// }
-// fs.writeFile("log.txt", data, function(err) {
 
-//   // If the code experiences any errors it will log the error to the console.
-//   if (err) {
-//     return console.log(err);
-//   }
-
-//   // Otherwise, it will print: "movies.txt was updated!"
-//   console.log("log.txt was updated!");
-
-  
-// });
