@@ -16,7 +16,17 @@ if (command === "my-tweets") {
             for (var i = 0; i < tweets.length; i++) {
 
                 console.log(tweets[i].created_at + tweets[i].text);
+                // this is overwriting the previous entry each time
+                fs.appendFile("log.txt", command + " " + tweets[i].text, function(err) {
+
+                    if (err) {
+                        return console.log(err);
+                    }
+
+                });
+
             }
+            console.log("log.txt was updated!");
         }
     });
 } else if (command === "spotify-this-song") {
@@ -51,13 +61,26 @@ if (command === "my-tweets") {
                 }
             });
         } else if (process.argv[3]) {
-            var dataArray = data.tracks.items.length;    
+            var dataArray = data.tracks.items.length;
             for (var i = 0; i < dataArray; i++) {
                 var songTitle = data.tracks.items[i].name;
                 if (songTitle.includes(process.argv[3])) {
                     console.log("Artist: " + data.tracks.items[i].artists[0].name + "  " + "Song Name: " + data.tracks.items[i].name + "  " + "Album: " + data.tracks.items[i].album.name + "  " + "Track Link: " + data.tracks.items[i].external_urls.spotify + "\n");
+
+                    fs.appendFile("log.txt", command + " " + song + " " + songTitle + " " + data.tracks.items[i].name + " " + data.tracks.items[i].album.name + " " + data.tracks.items[i].external_urls.spotify, function(err) {
+
+
+                        if (err) {
+                            return console.log(err);
+                        }
+
+
+
+
+                    });
                 }
             }
+            console.log("log.txt was updated!");
         }
     });
 } else if (command === "movie-this") {
@@ -103,6 +126,18 @@ if (command === "my-tweets") {
                 console.log("The movie's actors are: " + JSON.parse(body).Actors);
                 console.log("Rotten Tomatoes rating: " + JSON.parse(body).Ratings[1].Value);
 
+                fs.appendFile("log.txt", command + " " + movieName + " " + JSON.parse(body).Title + "," + JSON.parse(body).Year + "," + JSON.parse(body).imdbRating + "," + JSON.parse(body).Country + "," + JSON.parse(body).Language + "," + JSON.parse(body).Plot + "," + JSON.parse(body).Actors + "," + JSON.parse(body).Ratings[1].Value, function(err) {
+
+
+                    if (err) {
+                        return console.log(err);
+                    }
+
+
+                    console.log("log.txt was updated!");
+
+                });
+
             });
         } else if (!error && response.statusCode === 200) {
 
@@ -114,6 +149,18 @@ if (command === "my-tweets") {
             console.log("The movie's plot: " + JSON.parse(body).Plot);
             console.log("The movie's actors are: " + JSON.parse(body).Actors);
             console.log("Rotten Tomatoes rating: " + JSON.parse(body).Ratings[1].Value);
+
+            fs.appendFile("log.txt", command + " " + movieName + " " + JSON.parse(body).Title + "," + JSON.parse(body).Year + "," + JSON.parse(body).imdbRating + "," + JSON.parse(body).Country + "," + JSON.parse(body).Language + "," + JSON.parse(body).Plot + "," + JSON.parse(body).Actors + "," + JSON.parse(body).Ratings[1].Value, function(err) {
+
+
+                if (err) {
+                    return console.log(err);
+                }
+
+
+                console.log("log.txt was updated!");
+
+            });
         }
 
     });
@@ -132,7 +179,20 @@ if (command === "my-tweets") {
         exec(doIt, function(error, stdout, stderr) {
             console.log(doIt);
             console.log(stdout);
+
+            fs.appendFile("log.txt", doIt + "," + stdout, function(err) {
+
+
+                if (err) {
+                    return console.log(err);
+                }
+
+
+
+
+            });
         });
+        console.log("log.txt was updated!");
 
     });
 }
