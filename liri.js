@@ -4,10 +4,8 @@ var client = new Twitter(keys.twitterKeys);
 var spotify = require("spotify");
 var request = require("request");
 var fs = require("fs");
+var exec = require('child_process').exec;
 
-// console.log("Please enter a command for LiriBot: my-tweets <username>, spotify-this-song <song name>, movie-this <movie name >, or do-what-it-says");
-
-// Create a "Prompt" with a series of questions.
 
 var command = process.argv[2];
 
@@ -30,7 +28,6 @@ if (command === "my-tweets") {
         if (i > 3 && i < nodeArgs.length) {
 
             song = song + "+" + nodeArgs[i];
-            console.log(song);
 
         } else {
 
@@ -53,13 +50,15 @@ if (command === "my-tweets") {
                     console.log("Artist: " + data.artists[0].name + "\nSong: " + data.name);
                 }
             });
-        } else if
-            (process.argv[3]) {
-                var dataArray = data.tracks.items.length;
-                for (var i = 0; i < dataArray; i++) {
-                console.log("Artist: " + data.tracks.items[i].artists[0].name + "  " + "Song Name: " + data.tracks.items[i].name + "  " + "Album: " + data.tracks.items[i].album.name + "  " + "Track Link: " + data.tracks.items[i].external_urls.spotify + "\n");
+        } else if (process.argv[3]) {
+            var dataArray = data.tracks.items.length;    
+            for (var i = 0; i < dataArray; i++) {
+                var songTitle = data.tracks.items[i].name;
+                if (songTitle.includes(process.argv[3])) {
+                    console.log("Artist: " + data.tracks.items[i].artists[0].name + "  " + "Song Name: " + data.tracks.items[i].name + "  " + "Album: " + data.tracks.items[i].album.name + "  " + "Track Link: " + data.tracks.items[i].external_urls.spotify + "\n");
                 }
             }
+        }
     });
 } else if (command === "movie-this") {
     var nodeArgs = process.argv;
@@ -116,6 +115,24 @@ if (command === "my-tweets") {
             console.log("The movie's actors are: " + JSON.parse(body).Actors);
             console.log("Rotten Tomatoes rating: " + JSON.parse(body).Ratings[1].Value);
         }
+
+    });
+} else if (command === "do-what-it-says") {
+
+    fs.readFile("random.txt", "utf8", function(error, data) {
+
+        // We will then print the contents of data
+        console.log(data);
+
+        // Then split it by commas (to make it more readable)
+        var dataArr = data.split(",");
+
+        // We will then re-display the content as an array for later use.
+        var doIt = ("node " + "liri.js " + dataArr[0] + " " + JSON.parse(dataArr[1]));
+        exec(doIt, function(error, stdout, stderr) {
+            console.log(doIt);
+            console.log(stdout);
+        });
 
     });
 }
